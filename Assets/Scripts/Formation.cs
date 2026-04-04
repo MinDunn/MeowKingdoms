@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace MeowKingdoms
 {
@@ -13,7 +14,7 @@ namespace MeowKingdoms
             if (position >= 0 && position < 6)
             {
                 TeamMembers[position] = hero;
-                Console.WriteLine($"Đã xếp {hero.Name} vào vị trí số {position + 1}.");
+                Debug.Log($"Đã xếp {hero.Name} vào vị trí số {position + 1}.");
             }
         }
 
@@ -24,7 +25,8 @@ namespace MeowKingdoms
             {
                 if (hero != null)
                 {
-                    total += hero.Attack + (hero.HP / 10) + hero.Speed;
+                    // Đã sửa HP thành MaxHP để khớp với CatHero.cs
+                    total += hero.Attack + (hero.MaxHP / 10) + hero.Speed;
                 }
             }
             return total;

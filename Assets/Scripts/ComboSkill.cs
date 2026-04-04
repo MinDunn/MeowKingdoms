@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace MeowKingdoms
 {
@@ -21,6 +22,7 @@ namespace MeowKingdoms
         {
             foreach (var req in RequiredHeros)
             {
+                // h.Name vẫn hoạt động vì chúng ta đã giữ lại thuộc tính này trong CatHero mới
                 if (!currentTeam.Exists(h => h != null && h.Name == req)) return false;
             }
             return true;
@@ -28,7 +30,7 @@ namespace MeowKingdoms
 
         public void Execute()
         {
-            Console.WriteLine($"🔥 KÍCH HOẠT HỢP KÍCH: {ComboName}! Sát thương hủy diệt!");
+            Debug.Log($"🔥 KÍCH HOẠT HỢP KÍCH: {ComboName}! Sát thương hủy diệt!");
         }
     }
 }
