@@ -26,6 +26,9 @@ namespace MeowKingdoms
         public float dodgeBonus;
         public float damageReducBonus;
 
+        [Header("Modular Visualization")]
+        public Sprite layerSprite; // Hình ảnh mảnh đồ này khi mặc lên người mèo
+
         [Header("Divine Weapon Special (Thần Khí)")]
         public bool isDivineWeapon;
         public Sprite evolutionSprite; // Hình ảnh tướng khi cầm thần khí này

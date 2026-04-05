@@ -38,7 +38,7 @@ namespace MeowKingdoms
             
             // Hiển thị chỉ số dạng: 1000 -> 1100 (+10%)
             float nextHP = currentHero.Data.baseHP * (1f + 0.1f * (currentHero.Level));
-            float nextAtk = currentHero.Data.baseAttack * (1f + 0.1f * (currentHero.Level));
+            float nextAtk = currentHero.Data.basePhysATK * (1f + 0.1f * (currentHero.Level));
             float nextSpd = currentHero.Data.baseSpeed * (1f + 0.1f * (currentHero.Level));
 
             hpText.text = $"Máu: {currentHero.MaxHP:F0} -> {nextHP:F0} (+10%)";

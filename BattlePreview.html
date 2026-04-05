@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MeowKingdoms - Battle Effects Preview</title>
+    <style>
+        body { margin: 0; background: #0f0f1e; color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+        #arena { position: relative; width: 800px; height: 450px; background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%); border: 3px solid #4834d4; border-radius: 20px; box-shadow: 0 0 30px rgba(72, 52, 212, 0.5); overflow: hidden; }
+        .cat-unit { position: absolute; bottom: 100px; left: 150px; width: 100px; height: 100px; transition: transform 0.15s ease-out; z-index: 10; }
+        .cat-body { width: 80px; height: 80px; background: #ecf0f1; border-radius: 50% 50% 45% 45%; position: relative; animation: idle 2s infinite ease-in-out; }
+        .cat-body::before { content:''; position:absolute; top:-15px; left:5px; width:25px; height:35px; background:#ecf0f1; border-radius:5px 25px 0 0; transform:rotate(-15deg); }
+        .cat-body::after { content:''; position:absolute; top:-15px; right:5px; width:25px; height:35px; background:#ecf0f1; border-radius:25px 5px 0 0; transform:rotate(15deg); }
+        .gear { display: none; position: absolute; top: -5px; left: 0; width: 80px; height: 30px; background: #f1c40f; border-radius: 20px 20px 0 0; border: 2px solid #b7950b; }
+        .armored .gear { display: block; }
+        .afterimage { position: absolute; background: rgba(236, 240, 241, 0.4); border-radius: 50%; pointer-events: none; animation: fadeOut 0.4s forwards; }
+        #darken { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); opacity: 0; transition: 0.5s; z-index: 5; }
+        #spirit { position: absolute; bottom: 150px; left: 100px; width: 250px; height: 250px; background: radial-gradient(circle, rgba(162, 155, 254, 0.4) 0%, transparent 70%); border-radius: 50%; opacity: 0; transform: scale(0.5); transition: 0.6s; z-index: 6; display: flex; align-items: center; justify-content: center; font-size: 80px; color: #a29bfe; }
+        .ult-active #darken, .ult-active #spirit { opacity: 1; transform: scale(1); }
+        .shake { animation: shake 0.2s infinite; }
+        @keyframes idle { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        @keyframes fadeOut { to { opacity: 0; transform: scale(0.7) translateY(-20px); } }
+        @keyframes shake { 0% { transform: translate(2px, 2px); } 50% { transform: translate(-3px, -2px); } 100% { transform: translate(0, 0); } }
+        .controls { margin-top: 30px; display: flex; gap: 15px; }
+        button { padding: 12px 25px; border-radius: 10px; border: none; background: #4834d4; color: white; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #686de0; transform: scale(1.05); }
+    </style>
+</head>
+<body>
+    <h2 style="color: #686de0;">MEOW KINGDOMS - BATTLE PREVIEW</h2>
+    <div id="arena">
+        <div id="darken"></div>
+        <div id="spirit">🐱✨</div>
+        <div id="cat-unit" class="cat-unit">
+            <div class="cat-body"><div class="gear"></div></div>
+        </div>
+        <div id="enemy" style="position: absolute; right: 150px; bottom: 100px; width: 100px; height: 100px; background: #e74c3c; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white;">ENEMY</div>
+    </div>
+    <div class="controls">
+        <button onclick="toggleGear()">TOGGLE GEAR (CLOTHES)</button>
+        <button onclick="playAttack()">ATTACK (AFTERIMAGE)</button>
+        <button onclick="playUlt()">ULTIMATE SKILL</button>
+    </div>
+    <script>
+        const cat = document.getElementById('cat-unit');
+        const arena = document.getElementById('arena');
+        function toggleGear() { cat.classList.toggle('armored'); }
+        function playAttack() {
+            cat.style.transition = 'transform 0.15s ease-in';
+            cat.style.transform = 'translateX(450px)';
+            let count = 0;
+            const ghostInt = setInterval(() => {
+                const ghost = document.createElement('div');
+                ghost.className = 'afterimage';
+                ghost.style.left = cat.offsetLeft + 'px'; ghost.style.top = cat.offsetTop + 'px';
+                ghost.style.width = '80px'; ghost.style.height = '80px';
+                arena.appendChild(ghost);
+                if(++count > 8) clearInterval(ghostInt);
+            }, 30);
+            setTimeout(() => {
+                arena.classList.add('shake');
+                setTimeout(() => {
+                    arena.classList.remove('shake');
+                    cat.style.transition = 'transform 0.3s ease-out';
+                    cat.style.transform = 'translateX(0)';
+                }, 200);
+            }, 150);
+        }
+        function playUlt() {
+            arena.classList.add('ult-active');
+            setTimeout(() => {
+                playAttack();
+                setTimeout(() => arena.classList.remove('ult-active'), 800);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

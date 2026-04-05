@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf4ca8fb885bef14f98f834887859904, type: 3}
+  m_Name: Meo Thuy
+  m_EditorClassIdentifier: Assembly-CSharp::MeowKingdoms.CatHeroData
+  heroName: 
+  element: 0
+  role: 0
+  portrait: {fileID: -4965413517622705888, guid: 0082a4168ced8244b9026068307b987c, type: 3}
+  headAnchor: {x: 0, y: 0}
+  bodyAnchor: {x: 0, y: 0}
+  handAnchor: {x: 0, y: 0}
+  baseHP: 100
+  basePhysATK: 20
+  baseMagATK: 0
+  basePhysDef: 10
+  baseMagDef: 10
+  baseSpeed: 10
+  baseCritRate: 0.05
+  baseCritDamage: 1.5
+  baseDodge: 0.05
+  baseAccuracy: 0.95
+  basePhysPierce: 0
+  baseMagPierce: 0
+  baseLifeSteal: 0
+  baseHealPower: 1
+  baseDamageReduc: 0
+  skillName: 
+  skillDescription: 
