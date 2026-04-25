@@ -15,6 +15,7 @@ namespace MeowKingdoms
         public SpriteRenderer armorRenderer;
         public SpriteRenderer weaponRenderer;
         public SpriteRenderer circleAura;
+        public SpriteRenderer cardFrameRenderer; // [NEW] Khung hình thẻ bài
         public SpriteRenderer blinkRenderer;
 
         private Vector3 startPosition;
@@ -22,13 +23,8 @@ namespace MeowKingdoms
         private Coroutine shakeCoroutine;
         private bool isAnimating = false;
 
-        // Bảng màu hào quang hệ
-        private Dictionary<CatElement, Color> elementColors = new Dictionary<CatElement, Color>()
-        {
-            { CatElement.Fire, Color.red }, { CatElement.Water, Color.cyan },
-            { CatElement.Wind, Color.green }, { CatElement.Lightning, Color.yellow },
-            { CatElement.Arcane, new Color(1f, 0f, 1f) }
-        };
+        // Bảng màu đồng bộ từ CardDesignConstants
+        private Color GetHeroColor() => Hero != null ? CardDesignConstants.GetElementColor(Hero.Element) : Color.white;
 
         public void Initialize(CatHero hero, bool isPlayer)
         {
@@ -76,10 +72,9 @@ namespace MeowKingdoms
             {
                 if (!isAnimating)
                 {
-                    float bob = Mathf.Sin(Time.time * 2f) * 0.05f;
-                    float squash = 1f - (bob * 0.5f);
-                    baseCatRenderer.transform.localScale = new Vector3(1f + bob, squash, 1f);
-                    baseCatRenderer.transform.localPosition = new Vector3(0, bob * 0.5f, 0);
+                    // Hiệu ứng "Thở" (Breathing) cho cả tấm thẻ
+                    float breathe = 1f + Mathf.Sin(Time.time * 1.5f) * 0.02f;
+                    transform.localScale = new Vector3(breathe * (isPlayerTeam ? 0.6f : -0.6f), breathe * 0.6f, 1f);
                 }
                 yield return null;
             }
@@ -137,10 +132,15 @@ namespace MeowKingdoms
             // Glow hào quang khi đầy nộ
             if (Hero != null && Hero.CanUseSkill())
             {
-                float pulse = 0.5f + Mathf.PingPong(Time.time * 2f, 0.5f);
-                baseCatRenderer.color = elementColors.ContainsKey(Hero.Element) ? elementColors[Hero.Element] * pulse : Color.white * pulse;
+                float pulse = 0.7f + Mathf.PingPong(Time.time * 3f, 0.3f);
+                baseCatRenderer.color = GetHeroColor() * pulse;
+                if (cardFrameRenderer != null) cardFrameRenderer.color = Color.white * pulse;
             }
-            else if (flashCoroutine == null) baseCatRenderer.color = Color.white;
+            else if (flashCoroutine == null) 
+            {
+                baseCatRenderer.color = Color.white;
+                if (cardFrameRenderer != null) cardFrameRenderer.color = Color.white;
+            }
         }
 
         // --- HOẠT ẢNH TẤN CÔNG (MERGED: DASH + AFTERIMAGE + SHAKE) ---

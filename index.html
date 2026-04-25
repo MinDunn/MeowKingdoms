@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meow Kingdoms - Pure Code Edition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <canvas id="gameCanvas"></canvas>
+        <div id="ui-container">
+            <header>
+                <div class="player-info">
+                    <span class="rank">LEVEL 42</span>
+                    <h2 class="player-name">MEOW COMMANDER</h2>
+                </div>
+                <div class="resources">
+                    <div class="resource-item">🐟 <span id="gold-count">12,500</span></div>
+                    <div class="resource-item">💎 <span id="gem-count">450</span></div>
+                </div>
+            </header>
+            <main id="battle-scene">
+                <div id="hero-dock"></div>
+            </main>
+            <footer>
+                <nav>
+                    <button class="nav-btn active">BATTLE</button>
+                    <button class="nav-btn">HEROES</button>
+                    <button class="nav-btn">SHOP</button>
+                    <button class="nav-btn">GUILD</button>
+                </nav>
+            </footer>
+        </div>
+    </div>
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>

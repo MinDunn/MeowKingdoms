@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace MeowKingdoms
 {
-    public enum CatElement { Fire, Water, Wind, Lightning, Earth, Light, Dark, Arcane }
+    public enum CatElement { Fire, Water, Ice, Wind, Lightning, Earth, Nature, Light, Dark, Arcane }
     public enum CatRole { Tank, Brawler, Assassin, Marksman, Mage, Support }
 
     [CreateAssetMenu(fileName = "NewCatHero", menuName = "MeowKingdoms/Cat Hero Data")]
