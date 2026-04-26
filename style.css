@@ -1,36 +1,118 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&display=swap');
+/* 
+    MEOW KINGDOMS - DESIGN SYSTEM 2.0 (CHIBI/MANGA EDITION)
+    Author: Antigravity AI
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Fredoka:wght@400;600&display=swap');
 
 :root {
-    --primary: #ffcc00;
-    --secondary: #ff00ff;
-    --accent: #00f2ff;
-    --bg-dark: #0a0a0c;
-    --glass: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    /* Chibi / Manga Color Palette */
+    --p-pink: #ff9aa2;
+    --p-peach: #ffb7b2;
+    --p-yellow: #ffdac1;
+    --p-green: #e2f0cb;
+    --p-blue: #b5ead7;
+    --p-purple: #c7ceea;
+    
+    --primary: #ff748c; /* Vibrant Pink for buttons */
+    --secondary: #6ec6ff; /* Sky Blue */
+    --accent: #ffcc33; /* Sunny Yellow */
+    
+    --bg-main: #fdf6f0; /* Soft Cream */
+    --bg-card: #ffffff;
+    
+    --text-dark: #2d3436;
+    --text-muted: #636e72;
+    
+    /* Manga Style */
+    --manga-border: #2d3436;
+    --manga-shadow: 6px 6px 0px var(--manga-border);
+    --manga-radius: 20px;
+    
+    --font-main: 'Quicksand', sans-serif;
+    --font-heading: 'Fredoka', sans-serif;
+    
+    --transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-body, html {
-    margin: 0; padding: 0;
-    width: 100%; height: 100%;
-    overflow: hidden;
-    background-color: var(--bg-dark);
-    font-family: 'Outfit', sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-dark);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    background-image: radial-gradient(var(--p-peach) 1px, transparent 1px);
+    background-size: 30px 30px; /* Subtle polka dots */
+}
+
+h1, h2, h3, .heading {
+    font-family: var(--font-heading);
+    font-weight: 600;
+}
+
+/* Base Manga Card Style */
+.manga-card {
+    background: var(--bg-card);
+    border: 3px solid var(--manga-border);
+    border-radius: var(--manga-radius);
+    box-shadow: var(--manga-shadow);
+    padding: 20px;
+    transition: var(--transition);
+}
+
+.manga-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0px var(--manga-border);
+}
+
+/* Cute Buttons */
+.btn-cute {
+    background: var(--primary);
     color: white;
+    border: 3px solid var(--manga-border);
+    border-radius: 15px;
+    padding: 10px 25px;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px var(--manga-border);
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
-#app { position: relative; width: 100vw; height: 100vh; }
-#gameCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
-#ui-container { position: relative; width: 100%; height: 100%; z-index: 10; display: flex; flex-direction: column; pointer-events: none; }
+.btn-cute:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0px var(--manga-border);
+}
 
-header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent); pointer-events: auto; }
-.player-name { margin: 0; font-weight: 900; font-size: 1.5rem; text-shadow: 0 0 20px rgba(0, 242, 255, 0.3); }
-.resources { display: flex; gap: 20px; }
-.resource-item { background: var(--glass); padding: 8px 15px; border-radius: 20px; border: 1px solid var(--glass-border); backdrop-filter: blur(10px); font-weight: 600; }
+.btn-cute.secondary {
+    background: var(--secondary);
+}
 
-#battle-scene { flex: 1; display: flex; justify-content: center; align-items: center; }
+/* Layout Utilities */
+.admin-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    height: 100vh;
+    padding: 20px;
+    gap: 20px;
+}
 
-footer { padding: 20px; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); pointer-events: auto; }
-nav { display: flex; justify-content: center; gap: 15px; }
-.nav-btn { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 12px 25px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: 'Outfit', sans-serif; }
-.nav-btn:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 5px 15px rgba(0, 242, 255, 0.2); }
-.nav-btn.active { background: var(--accent); color: black; border: none; }
+aside {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+main {
+    overflow-y: auto;
+    padding: 5px;
+}

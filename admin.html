@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meow Admin - Trung Tâm Điều Khiển Mèo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar Manga Style -->
+        <aside class="manga-card">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h1 style="font-size: 1.5rem; color: var(--primary);">🐾 Meow Admin</h1>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Kingdom Controller v2.0</p>
+            </div>
+            
+            <nav style="display: flex; flex-direction: column; gap: 10px;">
+                <button class="btn-cute active" style="width: 100%;">🏰 Dashboard</button>
+                <button class="btn-cute secondary" style="width: 100%;">🐱 Heroes</button>
+                <button class="btn-cute secondary" style="width: 100%;">🗡️ Kỹ Năng</button>
+                <button class="btn-cute secondary" style="width: 100%;">🎒 Vật Phẩm</button>
+                <button class="btn-cute secondary" style="width: 100%;">⚙️ Cài Đặt</button>
+            </nav>
+
+            <div style="margin-top: auto; padding: 15px; background: var(--p-blue); border-radius: 15px; border: 2px dashed var(--manga-border);">
+                <p style="font-size: 0.8rem; font-weight: 600;">Status: Online 🟢</p>
+                <p style="font-size: 0.7rem;">Firebase: Connected</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main>
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <div>
+                    <h2 style="font-size: 2rem;">Chào mừng, Chủ nhân! ✨</h2>
+                    <p style="color: var(--text-muted);">Hôm nay chúng ta sẽ tạo thêm chiến binh mèo nào?</p>
+                </div>
+                <button id="addHeroBtn" class="btn-cute">➕ Thêm Hero Mới</button>
+            </header>
+
+            <div id="dashboardContent" class="grid-layout" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px;">
+                <!-- Hero Cards will be injected here -->
+                <div class="manga-card" style="display: flex; justify-content: center; align-items: center; border-style: dashed; color: var(--text-muted);">
+                    <p>Đang tải dữ liệu từ Meow Kingdom...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Form (Hidden by default) -->
+    <div id="heroModal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 100; justify-content: center; align-items: center;">
+        <div class="manga-card" style="width: 500px; background: white;">
+            <h3 id="modalTitle">🐾 Chiêu Mộ Hero</h3>
+            <hr style="margin: 15px 0; border: 1px solid var(--p-peach);">
+            <form id="heroForm">
+                <div style="margin-bottom: 15px;">
+                    <label style="display:block; font-weight: 600;">Tên Anh Hùng:</label>
+                    <input type="text" id="heroName" style="width: 100%; padding: 10px; border: 2px solid var(--manga-border); border-radius: 10px;" required>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                    <div>
+                        <label style="display:block; font-weight: 600;">Hệ (Element):</label>
+                        <select id="heroElement" style="width: 100%; padding: 10px; border: 2px solid var(--manga-border); border-radius: 10px;">
+                            <option value="fire">🔥 Hỏa</option>
+                            <option value="water">💧 Thủy</option>
+                            <option value="wind">🍃 Phong</option>
+                            <option value="earth">⛰️ Thổ</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display:block; font-weight: 600;">Vai Trò:</label>
+                        <select id="heroRole" style="width: 100%; padding: 10px; border: 2px solid var(--manga-border); border-radius: 10px;">
+                            <option value="tank">🛡️ Đỡ Đòn</option>
+                            <option value="dps">⚔️ Sát Thủ</option>
+                            <option value="mage">🔮 Pháp Sư</option>
+                            <option value="support">💖 Hỗ Trợ</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+                    <button type="button" class="btn-cute secondary" id="closeModal">Hủy</button>
+                    <button type="submit" class="btn-cute">Lưu Hero</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="src/admin.js"></script>
+</body>
+</html>

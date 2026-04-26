@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Fredoka:wght@400;600&display=swap');
+
+:root {
+  --p-pink: #ff9aa2;
+  --p-peach: #ffb7b2;
+  --p-yellow: #ffdac1;
+  --p-green: #e2f0cb;
+  --p-blue: #b5ead7;
+  --p-purple: #c7ceea;
+  
+  --primary: #ff748c;
+  --secondary: #6ec6ff;
+  --accent: #ffcc33;
+  
+  --bg-main: #fdf6f0;
+  --bg-card: #ffffff;
+  
+  --text-dark: #2d3436;
+  --text-muted: #636e72;
+  
+  --manga-border: #2d3436;
+  --manga-shadow: 6px 6px 0px var(--manga-border);
+  --manga-radius: 20px;
+  
+  --font-main: 'Quicksand', sans-serif;
+  --font-heading: 'Fredoka', sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-main);
+  color: var(--text-dark);
+  font-family: var(--font-main);
+  background-image: radial-gradient(var(--p-peach) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
