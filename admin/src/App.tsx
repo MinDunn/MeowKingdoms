@@ -70,6 +70,21 @@ const App: React.FC = () => {
     return () => { unsubAuth(); unsubH(); unsubT(); unsubR(); unsubA(); unsubB(); unsubI(); unsubS(); unsubM(); unsubC(); unsubP(); };
   }, []);
 
+  // AUTO-REDIRECT FOR PLAYERS
+  useEffect(() => {
+    if (user && loading === false) {
+      const isAdmin = userProfile?.role === 'admin' || 
+                      user?.email === 'phamminhdung12321@gmail.com' ||
+                      user?.email === 'admintest123@meow.kingdom';
+      
+      // If we are sure they are NOT an admin (either by role or by not being in admin email list)
+      // Redirect immediately to game
+      if (!isAdmin) {
+        window.location.href = '/game/index.html';
+      }
+    }
+  }, [user, userProfile, loading]);
+
   const handleLogout = () => {
     if(confirm("Xác nhận đăng xuất khỏi vương quốc?")) signOut(auth);
   };
@@ -78,29 +93,16 @@ const App: React.FC = () => {
 
   if (!user) return <AuthManager />;
 
-  // ROLE CHECK: If not admin, show Access Denied
-  // BACKDOOR: Auto-admin for the owner
+  // ROLE CHECK: If not admin, we redirect in useEffect, but let's show a quick loading here
   const isAdmin = userProfile?.role === 'admin' || 
                   user?.email === 'phamminhdung12321@gmail.com' ||
                   user?.email === 'admintest123@meow.kingdom';
 
-  if (user && !isAdmin) {
-    return (
-      <div className="auth-container">
-        <div className="manga-card auth-card" style={{borderColor: 'var(--p-red)'}}>
-          <div className="auth-header">
-            <div className="hero-avatar-static">🚫</div>
-            <h1 style={{color: 'var(--p-red)'}}>TRUY CẬP BỊ TỪ CHỐI</h1>
-            <p>Xin lỗi Anh Hùng, khu vực này chỉ dành cho <b>Quản Trị Viên</b>.</p>
-            <p style={{fontSize: '0.8rem', color: '#999'}}>Email của bạn: {user.email}</p>
-          </div>
-          <button onClick={handleLogout} className="btn-cute" style={{background: 'var(--p-red)', marginTop: '20px'}}>
-            Quay Lại Trang Đăng Nhập
-          </button>
-        </div>
-      </div>
-    );
+  if (!isAdmin) {
+    return <div className="loading-screen"><h1>⚔️ Đang tiến vào vương quốc...</h1></div>;
   }
+
+
 
   return (
     <div className="admin-layout">

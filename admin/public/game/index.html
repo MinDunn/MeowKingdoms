@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meow Kingdoms - Chiến Thuật Mèo Chiêu Tài</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐱</text></svg>">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Canvas Layer (Animated Heroes/Background) -->
+        <canvas id="bg-canvas"></canvas>
+
+        <!-- UI Overlay Layer -->
+        <div id="ui-layer">
+            <!-- TOP BAR -->
+            <header class="top-bar">
+                <div class="player-info">
+                    <div class="avatar-frame">🐱</div>
+                    <div class="player-meta">
+                        <h2>Master Meow <span class="level-tag">LV.99</span></h2>
+                        <div style="color: var(--g-blue); font-size: 0.8rem; font-weight: 800;">VIP 12 • Vương Quốc Ánh Sáng</div>
+                    </div>
+                </div>
+
+                <div class="currencies">
+                    <div class="curr-box"><span class="curr-icon">💰</span> 1,250,000</div>
+                    <div class="curr-box"><span class="curr-icon">💎</span> 5,800</div>
+                    <div class="curr-box" style="border-color: var(--g-red);"><span class="curr-icon">⚡</span> 120/120</div>
+                </div>
+            </header>
+
+            <!-- RIGHT ACTION MENU -->
+            <div class="action-menu">
+                <div class="btn-main-action btn-battle animate-pop">
+                    <span class="action-icon">⚔️</span>
+                    <span class="action-label">Chiến Đấu</span>
+                </div>
+                <div class="btn-main-action btn-quest animate-pop" style="animation-delay: 0.1s;">
+                    <span class="action-icon">📜</span>
+                    <span class="action-label">Nhiệm Vụ</span>
+                </div>
+                <div class="btn-main-action btn-guild animate-pop" style="animation-delay: 0.2s;">
+                    <span class="action-icon">🛡️</span>
+                    <span class="action-label">Bang Hội</span>
+                </div>
+            </div>
+
+            <!-- BOTTOM NAVIGATION -->
+            <nav class="nav-bar">
+                <div class="nav-item active">🏠 Trang Chủ</div>
+                <div class="nav-item">🐱 Anh Hùng</div>
+                <div class="nav-item">🎒 Túi Đồ</div>
+                <div class="nav-item" style="color: var(--g-orange);">✨ Chiêu Mộ</div>
+                <div class="nav-item">🛒 Cửa Hàng</div>
+            </nav>
+        </div>
+    </div>
+
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>
