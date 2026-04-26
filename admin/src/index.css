@@ -1,37 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Fredoka:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Fredoka:wght@400;600;700&display=swap');
 
 :root {
-  --p-pink: #ff9aa2;
-  --p-peach: #ffb7b2;
-  --p-yellow: #ffdac1;
-  --p-green: #e2f0cb;
-  --p-blue: #b5ead7;
-  --p-purple: #c7ceea;
-  
-  --primary: #ff748c;
-  --secondary: #6ec6ff;
-  --accent: #ffcc33;
-  
-  --bg-main: #fdf6f0;
-  --bg-card: #ffffff;
-  
-  --text-dark: #2d3436;
-  --text-muted: #636e72;
+  --p-orange: #ff9f43;
+  --p-yellow: #fed330;
+  --p-cream: #fffaf0;
+  --p-peach: #ffbe76;
+  --p-red: #ee5253;
+  --p-blue: #4bcffa;
   
   --manga-border: #2d3436;
-  --manga-shadow: 6px 6px 0px var(--manga-border);
-  --manga-radius: 20px;
-  
   --font-main: 'Quicksand', sans-serif;
   --font-heading: 'Fredoka', sans-serif;
 }
 
 body {
   margin: 0;
-  background-color: var(--bg-main);
-  color: var(--text-dark);
+  background-color: var(--p-cream);
+  color: #2d3436;
   font-family: var(--font-main);
-  background-image: radial-gradient(var(--p-peach) 1px, transparent 1px);
+  /* Sửa lại nền chấm bi cho đỡ rối */
+  background-image: radial-gradient(rgba(254, 211, 48, 0.3) 2px, transparent 2px);
   background-size: 30px 30px;
 }
 
