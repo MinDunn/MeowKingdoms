@@ -1,73 +1,63 @@
-# React + TypeScript + Vite
+# 🏰 Meow Admin Suite: Manga-Style Control Center
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Hệ quản trị dữ liệu (Admin Dashboard) dành riêng cho dự án **Meow Kingdoms**, được thiết kế để quản lý toàn bộ hệ sinh thái game một cách trực quan, nhanh chóng và đậm chất Manga.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌟 Tính năng chính
 
-## React Compiler
+- **📊 Dashboard**: Thống kê tổng quan tình hình vương quốc (Người chơi, Anh hùng, Trang bị...).
+- **👥 Player Management**: Quản lý thần dân, kiểm tra tài chính, cấp độ và xử lý vi phạm (Ban/Unban).
+- **🐱 Hero & Tribe Builder**: Cấu hình chi tiết chỉ số và hệ tộc tương khắc của các chiến binh mèo.
+- **🛡️ Item & Artifact Shop**: Quản lý kho trang bị, thần binh và linh thú hộ mệnh.
+- **💰 Financial System**: Điều chỉnh các loại tiền tệ (Vàng, Kim cương) và vật phẩm tiêu hao.
+- **🎨 Custom Manga UI**: Giao diện độc quyền với hiệu ứng hoạt họa mượt mà và màu sắc rực rỡ.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Công nghệ sử dụng
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Framework**: [React 19](https://react.dev/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Database/Auth**: [Firebase](https://firebase.google.com/)
+- **Styling**: Vanilla CSS (Custom Design System)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🚀 Hướng dẫn Cài đặt
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. **Cài đặt các gói phụ thuộc**:
+   ```bash
+   npm install
+   ```
+2. **Cấu hình Firebase**:
+   Cập nhật thông tin Firebase của bạn trong file `src/firebase.ts`.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. **Chạy ứng dụng (Development)**:
+   ```bash
+   npm run dev
+   ```
+4. **Build sản phẩm (Production)**:
+   ```bash
+   npm run build
+   ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📁 Cấu trúc Thư mục (Admin)
+
+- `src/components/`: Chứa các module quản lý riêng biệt cho từng tính năng.
+- `src/types.ts`: Định nghĩa các Interface dữ liệu dùng chung toàn hệ thống.
+- `src/firebase.ts`: Cầu nối giao tiếp với cơ sở dữ liệu Firestore.
+- `src/App.css`: Toàn bộ linh hồn giao diện (Manga Design Tokens).
+
+---
+
+## 🔐 Quyền truy cập
+
+Hệ thống chỉ cho phép các tài khoản có Email được cấp quyền `admin` trong Firestore truy cập vào các tính năng quản trị cấp cao.
+
+---
+
+**🐾 Developed with passion for Meow Kingdoms.**

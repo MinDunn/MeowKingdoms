@@ -1,70 +1,81 @@
-# 🐾 Meow Kingdoms: Đại Chiến Mèo Chiêu Tài
+# 🐾 Meow Kingdoms: Pure Code Card-Engine & Suite
 
-**Meow Kingdoms** là một dự án game chiến thuật nhập vai (RPG) đánh theo lượt (Turn-based Strategy) 6v6 được phát triển trên nền tảng **Unity**. Lấy cảm hứng từ các tựa game chiến thuật thẻ tướng cổ điển, trò chơi đưa người chơi vào một thế giới nơi các chiến binh mèo dũng cảm cùng nhau chiến đấu để bảo vệ vương quốc.
-
----
-
-## 🌟 Tính Năng Nổi Bật
-
-- **Chiến Thuật 6v6 Sâu Sắc**: Xây dựng đội hình linh hoạt với 6 vị trí chiến lược, tối ưu hóa sự phối hợp giữa các anh hùng.
-- **Hệ Thống Nguyên Tố Đa Dạng**: 10 hệ nguyên tố tương khắc (Hỏa, Thủy, Băng, Phong, Lôi, Thổ, Mộc, Quang, Ám, Bí Thuật).
-- **Vai Trò Anh Hùng Rõ Rệt**: Chia thành các vai trò chuyên biệt: Tank (Đỡ đòn), Brawler (Đấu sĩ), Assassin (Sát thủ), Marksman (Xạ thủ), Mage (Pháp sư) và Support (Hỗ trợ).
-- **Kỹ Năng Hợp Kích (Combo Skill)**: Kích hoạt những đòn đánh đặc biệt khi có sự kết hợp của các anh hùng cụ thể trong đội hình.
-- **Kiến Trúc Card-First**: Tập trung vào trải nghiệm thẻ bài cao cấp với hiệu ứng 3D Tilt, Breathing Scale và Elemental Aura rực rỡ.
-- **Hiệu Ứng Hình Ảnh Hoành Tráng**: Hệ thống Visual FX, hiệu ứng Afterimage (bóng mờ) và Ultimate Presentation chuyên nghiệp.
-- **Hệ Thống Trang Bị & Thú Cưỡi**: Nâng tầm sức mạnh anh hùng thông qua các bộ trang bị và linh thú.
+**Meow Kingdoms** là một hệ sinh thái trò chơi chiến thuật thẻ bài (Card Battle RPG) đỉnh cao, được xây dựng trên triết lý **Pure Code**. Dự án kết hợp sức mạnh của một Engine đồ họa tự tối ưu hóa và một Hệ quản trị dữ liệu thời gian thực chuyên nghiệp.
 
 ---
 
-- **Kiến trúc**: Pure Code (Canvas API + WebGL)
-- **Ngôn ngữ**: JavaScript (ES6+)
-- **Tính năng kỹ thuật**:
-    - Hệ thống Rendering dựa trên toán học (Breathing, 3D Tilt).
-    - Quản lý dữ liệu tập trung qua `src/data.js`.
-    - UI Layer bằng HTML5 & CSS3 cao cấp.
+## ⚡ Triết lý Pure Code (Pure Code Philosophy)
+
+Dự án này được phát triển với định hướng giảm thiểu sự phụ thuộc vào các engine cồng kềnh, tập trung vào hiệu năng thuần túy:
+- **Custom Canvas Renderer**: Hệ thống vẽ đồ họa được viết tay bằng Canvas API & WebGL, đảm bảo độ mượt mà 60 FPS ngay cả trên các thiết bị cấu hình thấp.
+- **Mathematical Animation**: Các hiệu ứng như 3D Tilt (nghiêng thẻ bài), Breathing Scale (hiệu ứng thở), và Particle VFX được tính toán trực tiếp bằng các công thức toán học hình học.
+- **Engine-less Integration**: Toàn bộ logic trận đấu, hệ thống kỹ năng và State Machine được đóng gói trong JavaScript thuần, giúp giảm dung lượng tải trang xuống mức tối thiểu.
 
 ---
 
-## 📂 Cấu Trúc Dự Án (Pure Code Edition)
+## 🏗️ Cấu trúc Hệ sinh thái
+
+Dự án là sự giao thoa giữa nghệ thuật lập trình thuần túy và công nghệ Web hiện đại:
+
+### 1. 🛡️ Core Game (The Pure Engine)
+- **Renderer**: Bộ dựng hình tùy chỉnh hỗ trợ Elemental Aura và Afterimage effects.
+- **Battle Logic**: Hệ thống đánh theo lượt 6v6 với logic tính toán sát thương thời gian thực.
+- **UI Layer**: Giao diện Manga-style được tối ưu hóa bằng CSS Grid và Flexbox.
+
+### 2. 🏰 Admin Dashboard (The Control Center)
+- **Frontend**: Xây dựng trên **React 19 + Vite**, tối ưu cho trải nghiệm quản trị viên.
+- **Database**: Tích hợp **Firebase (Firestore & Auth)** để quản lý dữ liệu vương quốc xuyên suốt.
+- **Real-time Sync**: Mọi thay đổi về chỉ số Anh hùng hoặc Vật phẩm từ Admin sẽ được cập nhật trực tiếp vào Game ngay lập tức.
+
+---
+
+## 📂 Cấu trúc Thư mục
 
 ```text
 /
-├── index.html          # Entry point chính
-├── style.css           # UI và hiệu ứng giao diện
-├── src/
-│   ├── main.js         # Vòng lặp game và điều khiển
-│   ├── renderer.js     # Hệ thống vẽ đồ họa (Aura, Tilt, VFX)
-│   └── data.js         # Dữ liệu anh hùng và kỹ năng
-└── unity_original/     # Lưu trữ các tài nguyên Unity cũ (Dự phòng)
+├── src/                  # 🚀 CORE GAME ENGINE (Pure Code)
+│   ├── main.js           # Khởi tạo vòng lặp Game (Game Loop)
+│   ├── renderer.js       # Bộ vẽ đồ họa (Aura, Tilt, VFX) - Linh hồn của Game
+│   └── data.js           # Quản lý hằng số, cấu trúc dữ liệu Anh hùng
+├── admin/                # 🏰 ADMIN SUITE (React Dashboard)
+│   ├── src/components/   # Module quản lý (Hero, Player, Artifact...)
+│   ├── src/firebase.ts   # Cấu hình kết nối Backend
+│   └── src/App.css       # Design System Manga độc quyền
+├── assets/               # Tài nguyên hình ảnh và âm thanh
+├── index.html            # Cổng vào chính của Game
+└── README.md             # Tài liệu dự án
 ```
 
 ---
 
-## 🚀 Hướng Dẫn Cài Đặt
+## 🌟 Tính năng Kỹ thuật Tiêu biểu
 
-1. **Yêu cầu**: Cài đặt [Unity Hub](https://unity.com/download) và phiên bản Unity phù hợp.
-2. **Clone dự án**:
-   ```bash
-   git clone https://github.com/your-username/MeowKingdoms.git
-   ```
-3. **Mở dự án**: Mở Unity Hub -> Add -> Chọn thư mục `MeowKingdoms`.
-4. **Chạy thử**: Mở Scene `BattleScene` trong thư mục `Assets/Scenes` và nhấn **Play**.
+- **✨ High-Performance Rendering**: Tối ưu hóa draw calls trên Canvas để xử lý hàng chục thẻ bài cùng hiệu ứng Aura đồng thời.
+- **🔮 Dynamic Data Mapping**: Hệ thống tự động ánh xạ dữ liệu từ Firestore vào các Class nhân vật trong game.
+- **🛡️ Secure Admin Portal**: Hệ thống đăng nhập đa phương thức (Email/Google), hỗ trợ ghi nhớ phiên đăng nhập và bảo mật mật khẩu.
+- **🎭 Manga Aesthetic**: Ngôn ngữ thiết kế dựa trên đường viền đậm (Heavy Borders) và màu sắc Pastel Vibrant, tạo cảm giác như một cuốn truyện tranh tương tác.
 
 ---
 
-## 🎮 Cách Chơi
+## 🚀 Hướng dẫn Khởi chạy
 
-1. **Sắp xếp đội hình**: Chọn 6 anh hùng mèo vào các vị trí trong Formation.
-2. **Kích hoạt kỹ năng**: Các anh hùng sẽ tự động đánh theo tốc độ (Speed). Tích lũy năng lượng để tung ra kỹ năng nộ (Ultimate).
-3. **Chiến thắng**: Tiêu diệt toàn bộ đội hình đối phương để giành thắng lợi và nhận tài nguyên nâng cấp.
+### Trải nghiệm Game:
+Bạn chỉ cần mở `index.html` bằng trình duyệt web. Khuyến nghị sử dụng **Live Server** trên VS Code để có trải nghiệm tốt nhất.
+
+### Quản trị hệ thống (Admin):
+```bash
+cd admin
+npm install
+npm run dev
+```
+Sau đó truy cập `http://localhost:5173`.
 
 ---
 
-## 📝 Giấy Phép (License)
+## 📝 Giấy phép (License)
 
-Dự án này được phát triển cho mục đích học tập và chia sẻ cộng đồng. 
-Vui lòng liên hệ tác giả nếu bạn muốn sử dụng tài nguyên hình ảnh trong game.
+Dự án được phát triển nhằm mục đích nghiên cứu kỹ thuật lập trình Web và đồ họa thuần. Vui lòng tôn trọng bản quyền hình ảnh và mã nguồn khi chia sẻ.
 
 ---
 
-**Chúc bạn có những giây phút trải nghiệm tuyệt vời cùng Meow Kingdoms! 🐱⚔️**
+**🐱 Hãy cùng nhau xây dựng một Vương quốc Mèo thuần khiết, mạnh mẽ và đầy màu sắc! ⚔️🏰**
