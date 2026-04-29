@@ -18,6 +18,7 @@ import MaterialManager from './components/MaterialManager';
 import CurrencyManager from './components/CurrencyManager';
 import PlayerManager from './components/PlayerManager';
 import AuthManager from './components/AuthManager';
+import CardPreview from './components/CardPreview';
 
 const App: React.FC = () => {
   const [user, setUser] = useState<any>(null);
@@ -49,7 +50,7 @@ const App: React.FC = () => {
     const unsubP = onSnapshot(collection(db, 'players'), s => {
       const allPlayers = s.docs.map(d => ({ id: d.id, ...d.data() })) as Player[];
       setPlayers(allPlayers);
-      
+
       if (auth.currentUser) {
         const profile = allPlayers.find(p => p.uid === auth.currentUser?.uid);
         if (profile) setUserProfile(profile);
@@ -66,17 +67,17 @@ const App: React.FC = () => {
     const unsubS = onSnapshot(collection(db, 'stats'), s => setStats(s.docs.map(d => ({ id: d.id, ...d.data() })) as StatConfig[]));
     const unsubM = onSnapshot(collection(db, 'materials'), s => setMaterials(s.docs.map(d => ({ id: d.id, ...d.data() })) as Material[]));
     const unsubC = onSnapshot(collection(db, 'currencies'), s => setCurrencies(s.docs.map(d => ({ id: d.id, ...d.data() })) as Currency[]));
-    
+
     return () => { unsubAuth(); unsubH(); unsubT(); unsubR(); unsubA(); unsubB(); unsubI(); unsubS(); unsubM(); unsubC(); unsubP(); };
   }, []);
 
   // AUTO-REDIRECT FOR PLAYERS
   useEffect(() => {
     if (user && loading === false) {
-      const isAdmin = userProfile?.role === 'admin' || 
-                      user?.email === 'phamminhdung12321@gmail.com' ||
-                      user?.email === 'admintest123@meow.kingdom';
-      
+      const isAdmin = userProfile?.role === 'admin' ||
+        user?.email === 'phamminhdung12321@gmail.com' ||
+        user?.email === 'admintest123@meow.kingdom';
+
       // If we are sure they are NOT an admin (either by role or by not being in admin email list)
       // Redirect immediately to game
       if (!isAdmin) {
@@ -86,7 +87,7 @@ const App: React.FC = () => {
   }, [user, userProfile, loading]);
 
   const handleLogout = () => {
-    if(confirm("Xác nhận đăng xuất khỏi vương quốc?")) signOut(auth);
+    if (confirm("Xác nhận đăng xuất khỏi vương quốc?")) signOut(auth);
   };
 
   if (loading) return <div className="loading-screen"><h1>🐾 Loading Meow Kingdoms...</h1></div>;
@@ -94,9 +95,9 @@ const App: React.FC = () => {
   if (!user) return <AuthManager />;
 
   // ROLE CHECK: If not admin, we redirect in useEffect, but let's show a quick loading here
-  const isAdmin = userProfile?.role === 'admin' || 
-                  user?.email === 'phamminhdung12321@gmail.com' ||
-                  user?.email === 'admintest123@meow.kingdom';
+  const isAdmin = userProfile?.role === 'admin' ||
+    user?.email === 'phamminhdung12321@gmail.com' ||
+    user?.email === 'admintest123@meow.kingdom';
 
   if (!isAdmin) {
     return <div className="loading-screen"><h1>⚔️ Đang tiến vào vương quốc...</h1></div>;
@@ -108,7 +109,7 @@ const App: React.FC = () => {
     <div className="admin-layout">
       <aside className="manga-card sidebar">
         <div className="brand"><h1>🐾 Meow Admin</h1><span>V4.5 Card Suite</span></div>
-        
+
         <div className="user-profile-mini">
           <div className="up-avatar">🐱</div>
           <div className="up-info">
@@ -117,7 +118,7 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        <nav className="nav-list" style={{overflowY: 'auto'}}>
+        <nav className="nav-list" style={{ overflowY: 'auto' }}>
           <button className={`nav-btn ${currentView === 'dashboard' ? 'active' : ''}`} onClick={() => setCurrentView('dashboard')}>🏰 Dashboard</button>
           <button className={`nav-btn ${currentView === 'players' ? 'active' : ''}`} onClick={() => setCurrentView('players')}>👥 Người Chơi</button>
           <button className={`nav-btn ${currentView === 'stats' ? 'active' : ''}`} onClick={() => setCurrentView('stats')}>📊 Chỉ Số</button>
@@ -129,6 +130,7 @@ const App: React.FC = () => {
           <button className={`nav-btn ${currentView === 'items' ? 'active' : ''}`} onClick={() => setCurrentView('items')}>🛡️ Trang Bị</button>
           <button className={`nav-btn ${currentView === 'artifacts' ? 'active' : ''}`} onClick={() => setCurrentView('artifacts')}>🗡️ Thần Binh</button>
           <button className={`nav-btn ${currentView === 'beasts' ? 'active' : ''}`} onClick={() => setCurrentView('beasts')}>🐲 Thần Thú</button>
+          <button className={`nav-btn ${currentView === 'cardPreview' ? 'active' : ''}`} onClick={() => setCurrentView('cardPreview')}>🖼️ Bậc tướng</button>
         </nav>
       </aside>
 
@@ -144,6 +146,7 @@ const App: React.FC = () => {
         {currentView === 'items' && <ItemManager items={items} stats={stats} />}
         {currentView === 'artifacts' && <ArtifactManager artifacts={artifacts} stats={stats} />}
         {currentView === 'beasts' && <BeastManager beasts={beasts} />}
+        {currentView === 'cardPreview' && <CardPreview />}
       </main>
     </div>
   );

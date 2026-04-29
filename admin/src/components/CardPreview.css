@@ -1,0 +1,351 @@
+/* Xoá background cũ, dùng chung layout của hệ thống */
+.card-preview-page {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.cp-control-panel {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 25px;
+  border: 4px solid var(--manga-border);
+  box-shadow: 8px 8px 0px var(--manga-border);
+  margin-bottom: 40px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--p-orange);
+}
+
+.cp-control-panel label {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Thừa hưởng input từ App.css, chỉ ghi đè nhẹ */
+.cp-control-panel input, .cp-control-panel select {
+  width: 220px;
+  margin: 0;
+}
+
+.cp-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 60px 20px; 
+  padding: 20px;
+}
+
+/* Khung bọc toàn bộ 1 Tướng */
+.cp-hero-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: 0.2s;
+}
+
+.cp-hero-card-wrapper:hover {
+  transform: translateY(-5px);
+}
+
+/* Phần Tên Tướng phía trên */
+.cp-hero-name {
+  color: var(--manga-border);
+  font-weight: 900;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: white;
+  border: 3px solid var(--manga-border);
+  box-shadow: 4px 4px 0px var(--manga-border);
+  padding: 6px 20px;
+  border-radius: 12px;
+  text-align: center;
+  z-index: 11;
+}
+
+.cp-avatar-container {
+  width: 160px;
+  height: 160px;
+  position: relative;
+  border-radius: 12px 12px 50px 12px;
+  box-shadow: 8px 8px 0px var(--manga-border);
+  border: 3px solid var(--manga-border);
+  padding: 6px; /* Làm dày viền màu lên để dễ nhìn hơn */
+}
+
+.cp-portrait-mask {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px 6px 42px 6px;
+  background-color: #2c3e50;
+  overflow: hidden; 
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  font-family: var(--font-heading);
+  font-weight: bold;
+  background: linear-gradient(135deg, #34495e, #1a252f);
+}
+
+.cp-shadow-overlay {
+  position: absolute;
+  bottom: 0; left: 0; width: 100%; height: 40%;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+}
+
+/* ICON TỘC HỆ - Nâng cấp lên Huy hiệu Kim Cương (Premium Diamond Badge) */
+.cp-faction-icon {
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  font-size: 24px;
+  color: #fff;
+}
+
+/* Base Kim Cương: Nền Tối, Viền Vàng sang trọng */
+.cp-faction-icon::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at top left, #34495e, #1a252f); /* Nền kim loại tối */
+  border: 3px solid var(--manga-border); /* Viền manga đen bao ngoài */
+  border-radius: 12px; /* Bo góc mượt mà */
+  transform: rotate(45deg); /* Xoay thành hình kim cương */
+  z-index: -2;
+  /* 
+    1. inset 0 0 0 3px #f1c40f: Tạo viền Vàng Gold ở bên trong
+    2. inset 0 0 12px 4px rgba(0,0,0,0.6): Đổ bóng đen bên trong tạo chiều sâu 3D
+    3. 3px 3px 0px var(--manga-border): Bóng đổ 3D manga chuẩn bên ngoài 
+  */
+  box-shadow: 
+    inset 0 0 0 3px #f1c40f, 
+    inset 0 0 12px 4px rgba(0,0,0,0.6),
+    4px 4px 0px var(--manga-border);
+}
+
+/* Chi tiết viền kẻ phụ bên trong (Inner detailing) */
+.cp-faction-icon::after {
+  content: '';
+  position: absolute;
+  top: 5px; left: 5px; right: 5px; bottom: 5px;
+  border: 1px dashed rgba(241, 196, 15, 0.4); /* Nét đứt màu vàng mờ */
+  border-radius: 9px;
+  transform: rotate(45deg);
+  z-index: -1;
+}
+
+.cp-level-text {
+  position: absolute;
+  top: 6px;
+  left: 38px;
+  color: #fff;
+  font-weight: 800;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 0 2px 0 #000, 2px 0 0 #000, 0 -2px 0 #000, -2px 0 0 #000;
+  z-index: 10;
+}
+
+.cp-stars-container {
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  z-index: 10;
+}
+
+.cp-star {
+  font-size: 20px;
+  text-shadow: 2px 2px 0px black;
+}
+
+/* THANH HP VÀ MANA */
+.cp-bars-container {
+  width: 130px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px; 
+}
+
+.cp-hp-bar {
+  height: 12px;
+  background: linear-gradient(to right, #2ecc71, #27ae60);
+  border: 3px solid var(--manga-border);
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 3px 3px 0px var(--manga-border);
+}
+
+.cp-mana-bar {
+  height: 10px;
+  display: flex;
+  width: 100%;
+  background-color: var(--manga-border);
+  border: 3px solid var(--manga-border);
+  border-radius: 6px;
+  box-sizing: border-box;
+  overflow: hidden;
+  gap: 2px;
+  box-shadow: 3px 3px 0px var(--manga-border);
+}
+
+.cp-mana-segment {
+  flex: 1;
+  background: linear-gradient(to bottom, #f1c40f, #f39c12);
+}
+
+/* TIER COLORS - 6 BẬC (Làm màu rực rỡ và sáng hơn) */
+.cp-tier-1 { background: linear-gradient(135deg, #ffffff 30%, #dcdde1); }
+.cp-tier-1 .cp-star { color: #f1c40f; }
+.cp-tier-2 { background: linear-gradient(135deg, #55efc4, #00b894); }
+.cp-tier-2 .cp-star { color: #f1c40f; }
+.cp-tier-3 { background: linear-gradient(135deg, #4bcffa, #0984e3); }
+.cp-tier-3 .cp-star { color: #f1c40f; }
+.cp-tier-4 { background: linear-gradient(135deg, #e056fd, #8e44ad); }
+.cp-tier-4 .cp-star { color: #f1c40f; }
+
+/* TIER 5: Huyền Thoại (Hiệu ứng Vàng nhấp nháy nhẹ) */
+@keyframes goldShimmer {
+  0% { box-shadow: 0 0 5px rgba(241, 196, 15, 0.3), 8px 8px 0px var(--manga-border); }
+  50% { box-shadow: 0 0 20px rgba(241, 196, 15, 0.8), 8px 8px 0px var(--manga-border); }
+  100% { box-shadow: 0 0 5px rgba(241, 196, 15, 0.3), 8px 8px 0px var(--manga-border); }
+}
+.cp-tier-5 { 
+  background: linear-gradient(135deg, #ffeaa7, #f1c40f, #e67e22); 
+  animation: goldShimmer 2s infinite;
+}
+.cp-tier-5 .cp-star { color: #f1c40f; }
+
+/* TIER 6: Thần Thoại (Hiệu ứng Đỏ rực lửa cháy mạnh mẽ) */
+@keyframes redFireGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes redAura {
+  0% { box-shadow: 0 0 10px rgba(232, 65, 24, 0.5), 0 0 20px rgba(194, 54, 22, 0.3), 8px 8px 0px var(--manga-border); }
+  50% { box-shadow: 0 0 30px rgba(232, 65, 24, 1), 0 0 50px rgba(255, 177, 66, 0.8), 8px 8px 0px var(--manga-border); }
+  100% { box-shadow: 0 0 10px rgba(232, 65, 24, 0.5), 0 0 20px rgba(194, 54, 22, 0.3), 8px 8px 0px var(--manga-border); }
+}
+.cp-tier-6 { 
+  background: linear-gradient(270deg, #ff7675, #e84118, #ffb142, #c23616); 
+  background-size: 300% 300%;
+  animation: redFireGradient 2.5s ease infinite, redAura 1.2s infinite;
+}
+.cp-tier-6 .cp-star { 
+  color: #ffeb3b; 
+  text-shadow: 0 0 8px rgba(255, 235, 59, 0.8); /* Sao cũng phát sáng */
+}
+
+/* HIỆU ỨNG HẠT TỎA RA (PARTICLES EFFECT) */
+.cp-avatar-container::before,
+.cp-avatar-container::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -3; /* Nằm dưới cùng, để tỏa ra từ sau khung */
+  pointer-events: none;
+}
+
+/* Tier 1: 2 hạt tĩnh lặng */
+@keyframes particleTier1 {
+  0% { box-shadow: 0 -85px 0 0 rgba(220,221,225,0.8), 0 85px 0 0 rgba(220,221,225,0.8); opacity: 1; }
+  100% { box-shadow: 0 -110px 0 -3px rgba(220,221,225,0), 0 110px 0 -3px rgba(220,221,225,0); opacity: 0; }
+}
+.cp-tier-1::before { animation: particleTier1 3s ease-out infinite; }
+.cp-tier-1::after { animation: particleTier1 3s ease-out 1.5s infinite; }
+
+/* Tier 2: 4 hạt Lục */
+@keyframes particleTier2 {
+  0% { box-shadow: 0 -85px 0 0 #55efc4, 0 85px 0 0 #55efc4, -85px 0 0 0 #55efc4, 85px 0 0 0 #55efc4; opacity: 1; }
+  100% { box-shadow: 0 -120px 0 -3px rgba(85,239,196,0), 0 120px 0 -3px rgba(85,239,196,0), -120px 0 0 -3px rgba(85,239,196,0), 120px 0 0 -3px rgba(85,239,196,0); opacity: 0; }
+}
+.cp-tier-2::before { animation: particleTier2 2.5s ease-out infinite; }
+.cp-tier-2::after { animation: particleTier2 2.5s ease-out 1.25s infinite; }
+
+/* Tier 3: 8 hạt Lam */
+@keyframes particleTier3 {
+  0% { box-shadow: 
+    0 -85px 0 0 #4bcffa, 60px -60px 0 0 #4bcffa, 85px 0 0 0 #4bcffa, 60px 60px 0 0 #4bcffa,
+    0 85px 0 0 #4bcffa, -60px 60px 0 0 #4bcffa, -85px 0 0 0 #4bcffa, -60px -60px 0 0 #4bcffa; 
+    opacity: 1; }
+  100% { box-shadow: 
+    0 -120px 0 -3px rgba(75,207,250,0), 85px -85px 0 -3px rgba(75,207,250,0), 120px 0 0 -3px rgba(75,207,250,0), 85px 85px 0 -3px rgba(75,207,250,0),
+    0 120px 0 -3px rgba(75,207,250,0), -85px 85px 0 -3px rgba(75,207,250,0), -120px 0 0 -3px rgba(75,207,250,0), -85px -85px 0 -3px rgba(75,207,250,0); 
+    opacity: 0; }
+}
+.cp-tier-3::before { animation: particleTier3 2s ease-out infinite; }
+.cp-tier-3::after { animation: particleTier3 2s ease-out 1s infinite; }
+
+/* Tier 4: 8 hạt Tím to hơn, bắn xa hơn */
+@keyframes particleTier4 {
+  0% { box-shadow: 
+    0 -85px 0 1px #e056fd, 60px -60px 0 1px #e056fd, 85px 0 0 1px #e056fd, 60px 60px 0 1px #e056fd,
+    0 85px 0 1px #e056fd, -60px 60px 0 1px #e056fd, -85px 0 0 1px #e056fd, -60px -60px 0 1px #e056fd; 
+    opacity: 1; }
+  100% { box-shadow: 
+    0 -140px 0 -3px rgba(224,86,253,0), 100px -100px 0 -3px rgba(224,86,253,0), 140px 0 0 -3px rgba(224,86,253,0), 100px 100px 0 -3px rgba(224,86,253,0),
+    0 140px 0 -3px rgba(224,86,253,0), -100px 100px 0 -3px rgba(224,86,253,0), -140px 0 0 -3px rgba(224,86,253,0), -100px -100px 0 -3px rgba(224,86,253,0); 
+    opacity: 0; }
+}
+.cp-tier-4::before { animation: particleTier4 1.8s ease-out infinite; }
+.cp-tier-4::after { animation: particleTier4 1.8s ease-out 0.9s infinite; }
+
+/* Tier 5: 16 hạt Vàng/Cam rực rỡ */
+@keyframes particleTier5 {
+  0% { box-shadow: 
+    0 -85px 0 2px #f1c40f, 60px -60px 0 1px #f1c40f, 85px 0 0 2px #f1c40f, 60px 60px 0 1px #f1c40f,
+    0 85px 0 2px #f1c40f, -60px 60px 0 1px #f1c40f, -85px 0 0 2px #f1c40f, -60px -60px 0 1px #f1c40f,
+    30px -85px 0 0 #e67e22, 85px -30px 0 0 #e67e22, 85px 30px 0 0 #e67e22, 30px 85px 0 0 #e67e22,
+    -30px 85px 0 0 #e67e22, -85px 30px 0 0 #e67e22, -85px -30px 0 0 #e67e22, -30px -85px 0 0 #e67e22; 
+    opacity: 1; }
+  100% { box-shadow: 
+    0 -160px 0 -3px rgba(241,196,15,0), 115px -115px 0 -3px rgba(241,196,15,0), 160px 0 0 -3px rgba(241,196,15,0), 115px 115px 0 -3px rgba(241,196,15,0),
+    0 160px 0 -3px rgba(241,196,15,0), -115px 115px 0 -3px rgba(241,196,15,0), -160px 0 0 -3px rgba(241,196,15,0), -115px -115px 0 -3px rgba(241,196,15,0),
+    50px -150px 0 -3px rgba(230,126,34,0), 150px -50px 0 -3px rgba(230,126,34,0), 150px 50px 0 -3px rgba(230,126,34,0), 50px 150px 0 -3px rgba(230,126,34,0),
+    -50px 150px 0 -3px rgba(230,126,34,0), -150px 50px 0 -3px rgba(230,126,34,0), -150px -50px 0 -3px rgba(230,126,34,0), -50px -150px 0 -3px rgba(230,126,34,0); 
+    opacity: 0; }
+}
+.cp-tier-5::before { animation: particleTier5 1.5s ease-out infinite; }
+.cp-tier-5::after { animation: particleTier5 1.5s ease-out 0.75s infinite; }
+
+/* Tier 6: 16 hạt Đỏ/Cam bùng nổ như pháo hoa */
+@keyframes particleTier6 {
+  0% { box-shadow: 
+    0 -85px 0 3px #ff7675, 60px -60px 0 2px #ff7675, 85px 0 0 3px #ff7675, 60px 60px 0 2px #ff7675,
+    0 85px 0 3px #ff7675, -60px 60px 0 2px #ff7675, -85px 0 0 3px #ff7675, -60px -60px 0 2px #ff7675,
+    40px -85px 0 1px #ffb142, 85px -40px 0 1px #ffb142, 85px 40px 0 1px #ffb142, 40px 85px 0 1px #ffb142,
+    -40px 85px 0 1px #ffb142, -85px 40px 0 1px #ffb142, -85px -40px 0 1px #ffb142, -40px -85px 0 1px #ffb142; 
+    opacity: 1; }
+  100% { box-shadow: 
+    0 -180px 5px -3px rgba(255,118,117,0), 125px -125px 5px -3px rgba(255,118,117,0), 180px 0 5px -3px rgba(255,118,117,0), 125px 125px 5px -3px rgba(255,118,117,0),
+    0 180px 5px -3px rgba(255,118,117,0), -125px 125px 5px -3px rgba(255,118,117,0), -180px 0 5px -3px rgba(255,118,117,0), -125px -125px 5px -3px rgba(255,118,117,0),
+    70px -170px 3px -3px rgba(255,177,66,0), 170px -70px 3px -3px rgba(255,177,66,0), 170px 70px 3px -3px rgba(255,177,66,0), 70px 170px 3px -3px rgba(255,177,66,0),
+    -70px 170px 3px -3px rgba(255,177,66,0), -170px 70px 3px -3px rgba(255,177,66,0), -170px -70px 3px -3px rgba(255,177,66,0), -70px -170px 3px -3px rgba(255,177,66,0); 
+    opacity: 0; }
+}
+.cp-tier-6::before { animation: particleTier6 1.2s ease-out infinite; }
+.cp-tier-6::after { animation: particleTier6 1.2s ease-out 0.6s infinite; }

@@ -20,3 +20,9 @@
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# Large Firebase Binaries
+unity_original/Assets/Firebase/Plugins/x86_64/*.bundle
+unity_original/Assets/Firebase/Plugins/x86_64/*.so
+unity_original/Assets/Firebase/Plugins/x86_64/*.bundle.meta
+unity_original/Assets/Firebase/Plugins/x86_64/*.so.meta

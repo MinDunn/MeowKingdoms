@@ -1,5 +1,20 @@
 import { GameRenderer } from './renderer.js';
-import { HERO_DATA } from './data.js';
+
+// --- FIREBASE PURE CODE SETUP ---
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBLnH9lRxiX1af-o8RK8Xt3pOiTlBlTcV0",
+    authDomain: "meowkingdoms.firebaseapp.com",
+    projectId: "meowkingdoms",
+    storageBucket: "meowkingdoms.firebasestorage.app",
+    messagingSenderId: "634429861674",
+    appId: "1:634429861674:web:c020c94856694212d87853"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 class GameClient {
     constructor() {
@@ -9,6 +24,7 @@ class GameClient {
 
         this.mouseX = 0;
         this.mouseY = 0;
+        this.squad = [];
 
         this.init();
     }
@@ -19,6 +35,17 @@ class GameClient {
         window.addEventListener('mousemove', (e) => {
             this.mouseX = e.clientX;
             this.mouseY = e.clientY;
+        });
+
+        // LIVE SYNC WITH ADMIN DATABASE
+        onSnapshot(collection(db, 'heroes'), (snapshot) => {
+            this.squad = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data(),
+                // Default styles if not provided by admin
+                colors: doc.data().colors || { primary: '#ff9f43', secondary: '#2d3436' }
+            }));
+            console.log(`Updated squad: ${this.squad.length} heroes loaded.`);
         });
 
         // Start Game Loop
@@ -34,24 +61,19 @@ class GameClient {
     render() {
         this.renderer.clear();
 
-        // Draw Squad of 5 Heroes
-        const squad = [
-            { ...HERO_DATA.CAT_KNIGHT, level: 99, enh: 12, rank: '[Vương Giả]' },
-            { ...HERO_DATA.CAT_MAGE, level: 85, enh: 10, rank: '[Hiền Triết]' },
-            { ...HERO_DATA.CAT_ASSASSIN, level: 92, enh: 11, rank: '[Ảnh Tử]' },
-            { ...HERO_DATA.CAT_KNIGHT, level: 70, enh: 8, rank: '[Chiến Binh]' },
-            { ...HERO_DATA.CAT_MAGE, level: 65, enh: 5, rank: '[Tập Sự]' }
-        ];
+        // Use live squad data (Limit to first 6 heroes for display)
+        const displaySquad = this.squad.slice(0, 6);
 
-        const spacing = 220; // Distance between heroes
-        const startX = (this.canvas.width - (squad.length - 1) * spacing) / 2;
-        const centerY = this.canvas.height / 2 + 180; // Lowered to stand on the road floor
+        if (displaySquad.length > 0) {
+            const spacing = Math.min(220, this.canvas.width / (displaySquad.length + 1));
+            const startX = (this.canvas.width - (displaySquad.length - 1) * spacing) / 2;
+            const centerY = this.canvas.height / 2 + 220;
 
-        squad.forEach((hero, index) => {
-            const x = startX + index * spacing;
-            // Perfectly straight line formation
-            this.renderer.drawHero(hero, x, centerY, this.mouseX, this.mouseY);
-        });
+            displaySquad.forEach((hero, index) => {
+                const x = startX + index * spacing;
+                this.renderer.drawHero(hero, x, centerY, this.mouseX, this.mouseY);
+            });
+        }
 
         requestAnimationFrame(() => this.render());
     }

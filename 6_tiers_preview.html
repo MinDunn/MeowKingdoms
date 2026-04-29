@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>6 Tiers MeowKingdoms Preview with Details</title>
+<style>
+  body {
+    background-color: #ebdcb2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Bảng điều khiển Tương tác */
+  .control-panel {
+    background: white;
+    padding: 15px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    margin-top: 40px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #2c3e50;
+    border: 3px solid #d35400;
+  }
+
+  .control-panel input, .control-panel select {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 2px solid #bdc3c7;
+    border-radius: 6px;
+    outline: none;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+  .control-panel input:focus, .control-panel select:focus {
+    border-color: #d35400;
+  }
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* Giãn cách rộng hơn một chút để chứa tên và thanh máu */
+    gap: 60px 80px; 
+    padding: 60px;
+  }
+
+  /* Khung bọc toàn bộ 1 Tướng (Gồm Tên + Khung Ảnh + Thanh Máu) */
+  .hero-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px; /* Khoảng cách vừa đủ giữa Tên, Khung và Thanh máu */
+  }
+
+  /* Phần Tên Tướng phía trên */
+  .hero-name {
+    color: #2c3e50;
+    font-weight: 900;
+    font-size: 18px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 0px rgba(255,255,255,0.6);
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,0,0,0.08), transparent);
+    padding: 4px 20px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .avatar-container {
+    width: 160px;
+    height: 160px;
+    position: relative;
+    border-radius: 12px 12px 50px 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    padding: 6px; 
+  }
+
+  .portrait-mask {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px 8px 44px 8px;
+    background-color: #2c3e50;
+    overflow: hidden; 
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #34495e, #1a252f);
+  }
+  
+  .shadow-overlay {
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 40%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  }
+
+  .faction-icon {
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, #f39c12, #d35400);
+    border-radius: 50%;
+    border: 3px solid #ebdcb2; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  .level-text {
+    position: absolute;
+    top: 10px;  /* Đẩy chữ Lvl xuống dưới một chút để xa viền trên */
+    left: 42px; /* Đẩy chữ Lvl sang phải một chút để tránh dính vào icon Hệ */
+    color: #fff;
+    font-weight: 800;
+    font-size: 16px;
+    text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 0 2px 0 #000, 2px 0 0 #000, 0 -2px 0 #000, -2px 0 0 #000;
+    z-index: 10;
+  }
+
+  .stars-container {
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    z-index: 10;
+  }
+
+  .star {
+    font-size: 20px;
+    text-shadow: 1px 1px 2px black;
+  }
+
+  /* THANH HP VÀ MANA */
+  .bars-container {
+    width: 130px; /* Nhỏ hơn avatar một chút cho đẹp */
+    display: flex;
+    flex-direction: column;
+    gap: 4px; /* Khoảng cách giữa Máu và Mana */
+  }
+  
+  .hp-bar {
+    height: 10px;
+    background: linear-gradient(to right, #2ecc71, #27ae60); /* Xanh lá */
+    border: 2px solid #2c3e50;
+    border-radius: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  .mana-bar {
+    height: 8px;
+    display: flex;
+    width: 100%;
+    background-color: #2c3e50;
+    border: 2px solid #2c3e50;
+    border-radius: 4px;
+    box-sizing: border-box;
+    overflow: hidden;
+    gap: 2px; /* Rãnh giữa các nấc mana rõ hơn */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  
+  .mana-segment {
+    flex: 1;
+    background: linear-gradient(to bottom, #f1c40f, #f39c12); /* Vàng */
+  }
+
+  /* TIER COLORS - 6 BẬC TRUYỀN THỐNG */
+  .tier-1 { background: linear-gradient(135deg, #ffffff, #95a5a6); }
+  .tier-1 .star { color: #f1c40f; }
+  .tier-2 { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+  .tier-2 .star { color: #f1c40f; }
+  .tier-3 { background: linear-gradient(135deg, #74b9ff, #0984e3); }
+  .tier-3 .star { color: #f1c40f; }
+  .tier-4 { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
+  .tier-4 .star { color: #f1c40f; }
+  .tier-5 { background: linear-gradient(135deg, #ffeaa7, #fdcb6e, #e17055); }
+  .tier-5 .star { color: #f1c40f; }
+  .tier-6 { background: linear-gradient(135deg, #ff7675, #d63031, #c0392b); }
+  .tier-6 .star { color: #ff4757; } 
+
+</style>
+</head>
+<body>
+
+<!-- Bảng điều khiển -->
+<div class="control-panel">
+  <label>Tên Tướng: <input type="text" id="inputName" value="Meow Chiến Binh" style="width: 200px;"></label>
+  <label>Hệ (Faction): 
+    <select id="selectFaction">
+      <option value="☀️" selected>☀️ Ánh Sáng</option>
+      <option value="💧">💧 Nước</option>
+      <option value="🔥">🔥 Lửa</option>
+      <option value="⛰️">⛰️ Đất</option>
+      <option value="⚡">⚡ Sấm Sét</option>
+      <option value="🌑">🌑 Bóng Tối</option>
+    </select>
+  </label>
+</div>
+
+<div class="grid-container">
+
+  <!-- Bậc 1 -->
+  <div class="hero-card-wrapper">
+    <div class="hero-name">Meow Nông Dân</div>
+    <div class="avatar-container tier-1">
+      <div class="portrait-mask">
+        Thường<br>(Trắng)
+        <div class="shadow-overlay"></div>
+      </div>
+      <div class="faction-icon">☀️</div>
+      <div class="level-text">Lvl 1</div>
+      <div class="stars-container"><span class="star">★</span></div>
+    </div>
+    <div class="bars-container">
+      <div class="hp-bar"></div>
+      <div class="mana-bar">
+        <div class="mana-segment"></div><div class="mana-segment"></div>
+        <div class="mana-segment"></div><div class="mana-segment"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bậc 2 -->
+  <div class="hero-card-wrapper">
+    <div class="hero-name">Meow Kiếm Sĩ</div>
+    <div class="avatar-container tier-2">
+      <div class="portrait-mask">
+        Cơ Bản<br>(Lục)
+        <div class="shadow-overlay"></div>
+      </div>
+      <div class="faction-icon">💧</div>
+      <div class="level-text">Lvl 20</div>
+      <div class="stars-container">
+        <span class="star">★</span><span class="star">★</span>
+      </div>
+    </div>
+    <div class="bars-container">
+      <div class="hp-bar"></div>
+      <div class="mana-bar">
+        <div class="mana-segment"></div><div class="mana-segment"></div>
+        <div class="mana-segment"></div><div class="mana-segment"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bậc 3 -->
+  <div class="hero-card-wrapper">
+    <div class="hero-name">Meow Cung Thủ</div>
+    <div class="avatar-container tier-3">
+      <div class="portrait-mask">
+        Hiếm<br>(Lam)
+        <div class="shadow-overlay"></div>
+      </div>
+      <div class="faction-icon">🔥</div>
+      <div class="level-text">Lvl 60</div>
+      <div class="stars-container">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+    </div>
+    <div class="bars-container">
+      <div class="hp-bar"></div>
+      <div class="mana-bar">
+        <div class="mana-segment"></div><div class="mana-segment"></div>
+        <div class="mana-segment"></div><div class="mana-segment"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bậc 4 -->
+  <div class="hero-card-wrapper">
+    <div class="hero-name">Meow Pháp Sư</div>
+    <div class="avatar-container tier-4">
+      <div class="portrait-mask">
+        Sử Thi<br>(Tím)
+        <div class="shadow-overlay"></div>
+      </div>
+      <div class="faction-icon">⛰️</div>
+      <div class="level-text">Lvl 100</div>
+      <div class="stars-container">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+    </div>
+    <div class="bars-container">
+      <div class="hp-bar"></div>
+      <div class="mana-bar">
+        <div class="mana-segment"></div><div class="mana-segment"></div>
+        <div class="mana-segment"></div><div class="mana-segment"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bậc 5 -->
+  <div class="hero-card-wrapper">
+    <div class="hero-name">Meow Hiệp Sĩ</div>
+    <div class="avatar-container tier-5">
+      <div class="portrait-mask">
+        Huyền Thoại<br>(Cam/Vàng)
+        <div class="shadow-overlay"></div>
+      </div>
+      <div class="faction-icon">⚡</div>
+      <div class="level-text">Lvl 160</div>
+      <div class="stars-container">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+    </div>
+    <div class="bars-container">
+      <div class="hp-bar"></div>
+      <div class="mana-bar">
+        <div class="mana-segment"></div><div class="mana-segment"></div>
+        <div class="mana-segment"></div><div class="mana-segment"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bậc 6 -->
+  <div class="hero-card-wrapper">
+    <div class="hero-name">Meow Thần Thánh</div>
+    <div class="avatar-container tier-6">
+      <div class="portrait-mask">
+        Thần Thoại<br>(Đỏ)
+        <div class="shadow-overlay"></div>
+      </div>
+      <div class="faction-icon">🌑</div>
+      <div class="level-text">Lvl 240+</div>
+      <div class="stars-container">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+    </div>
+    <div class="bars-container">
+      <div class="hp-bar"></div>
+      <div class="mana-bar">
+        <div class="mana-segment"></div><div class="mana-segment"></div>
+        <div class="mana-segment"></div><div class="mana-segment"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Lấy các elements điều khiển
+  const inputName = document.getElementById('inputName');
+  const selectFaction = document.getElementById('selectFaction');
+
+  // Hàm tự động cập nhật thẻ
+  function updateCards() {
+    const nameVal = inputName.value || 'CHƯA CÓ TÊN';
+    const factionVal = selectFaction.value;
+
+    // 1. Cập nhật tất cả Tên tướng trên cả 6 thẻ
+    document.querySelectorAll('.hero-name').forEach(el => {
+      el.textContent = nameVal;
+    });
+
+    // 2. Cập nhật tất cả Icon Hệ trên cả 6 thẻ
+    document.querySelectorAll('.faction-icon').forEach(el => {
+      el.textContent = factionVal;
+    });
+  }
+
+  // Lắng nghe sự kiện (Cứ gõ chữ là thẻ tự cập nhật ngay lập tức)
+  inputName.addEventListener('input', updateCards);
+  selectFaction.addEventListener('change', updateCards);
+  
+  // Khởi chạy ngay lần đầu tiên mở file
+  updateCards();
+</script>
+
+</body>
+</html>

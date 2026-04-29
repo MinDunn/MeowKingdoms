@@ -23,7 +23,14 @@ export interface Hero {
     passive: { name: string; description: string };
     active: { name: string; power: number; cd: number };
   };
+  rarity: string;
+  tier: number;
   color: string;
+}
+
+export interface TribeMilestone {
+  count: number;
+  description: string;
 }
 
 export interface Tribe {
@@ -31,10 +38,10 @@ export interface Tribe {
   name: string;
   icon: string;
   trait: string;
-  milestones: string;
+  milestones: TribeMilestone[];
   description: string;
   color: string;
-  counterId: string;
+  counterIds: string[];
   rarity: string;
   buffTarget: string;
 }

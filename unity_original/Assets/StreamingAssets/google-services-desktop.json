@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "634429861674",
+    "project_id": "meowkingdoms",
+    "storage_bucket": "meowkingdoms.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634429861674:android:f4e60086a088abb9d87853",
+        "android_client_info": {
+          "package_name": "com.phamm.meowkingdoms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "634429861674-tjar3a4t3kpe84rs89sn516qvhi97ffi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWJd7zcImv_iU-RPQd1HvhIU68xOmN09k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634429861674-tjar3a4t3kpe84rs89sn516qvhi97ffi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

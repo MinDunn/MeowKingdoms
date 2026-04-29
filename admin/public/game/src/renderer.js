@@ -62,23 +62,50 @@ export class GameRenderer {
         });
     }
 
-    drawAura(x, y, radius, color) {
+    getTierVisuals(tier) {
+        // Ánh xạ 6 Bậc sang Màu sắc Hào quang và Cường độ (Intensity)
+        switch(tier) {
+            case 1: return { color: '#ffffff', intensity: 1, radius: 80 }; // Thường (Trắng)
+            case 2: return { color: '#55efc4', intensity: 2, radius: 90 }; // Cơ Bản (Lục)
+            case 3: return { color: '#4bcffa', intensity: 3, radius: 100 }; // Hiếm (Lam)
+            case 4: return { color: '#e056fd', intensity: 4, radius: 110 }; // Sử Thi (Tím)
+            case 5: return { color: '#f1c40f', intensity: 6, radius: 125 }; // Huyền Thoại (Cam)
+            case 6: return { color: '#ff7675', intensity: 8, radius: 140 }; // Thần Thoại (Đỏ)
+            default: return { color: '#ffffff', intensity: 1, radius: 80 };
+        }
+    }
+
+    getHeroEmoji(heroId) {
+        // Sinh ra một icon ngẫu nhiên nhưng cố định dựa trên tên/ID tướng
+        const emojis = ['🐱', '😸', '😹', '😻', '😼', '😽', '🙀', '😿', '😾', '🦁', '🐯', '🦊', '🐺'];
+        if (!heroId) return '🐱';
+        let sum = 0;
+        for (let i = 0; i < heroId.length; i++) sum += heroId.charCodeAt(i);
+        return emojis[sum % emojis.length];
+    }
+
+    drawAura(x, y, radius, color, intensity = 2) {
         const time = Date.now() * 0.001;
         this.ctx.save();
         this.ctx.translate(x, y);
-        this.ctx.globalAlpha = 0.4;
         
-        // Multi-layered aura for depth
-        for (let i = 0; i < 3; i++) {
-            const scale = 1 + Math.sin(time * (1 + i * 0.2) + i) * 0.15;
+        // Độ đậm (Alpha) tăng theo Bậc tướng
+        this.ctx.globalAlpha = 0.2 + (intensity * 0.05);
+        
+        // Số vòng hào quang nhiều hay ít phụ thuộc vào Bậc
+        const layers = Math.min(5, Math.max(1, Math.floor(intensity / 2) + 1));
+        
+        for (let i = 0; i < layers; i++) {
+            // Tốc độ đập (scale) mạnh hơn đối với tướng bậc cao
+            const scale = 1 + Math.sin(time * (1 + i * 0.2) + i) * (0.1 + intensity * 0.015);
             this.ctx.beginPath();
             this.ctx.ellipse(0, 50, radius * scale * (1 - i * 0.1), radius * 0.3 * scale, 0, 0, Math.PI * 2);
             this.ctx.strokeStyle = color;
-            this.ctx.lineWidth = 4 - i;
+            this.ctx.lineWidth = (4 - i) + (intensity * 0.5);
             this.ctx.stroke();
             
-            // Inner glow
-            this.ctx.shadowBlur = 30;
+            // Độ tỏa sáng (Glow) tăng cực mạnh ở Bậc cao
+            this.ctx.shadowBlur = 10 + (intensity * 5);
             this.ctx.shadowColor = color;
         }
         this.ctx.restore();
@@ -90,31 +117,42 @@ export class GameRenderer {
         const dx = (mouseX - x) / 50;
         const dy = (mouseY - y) / 50;
 
+        // Lấy cấu hình Đồ họa (Visuals) dựa theo Bậc
+        const tierVisuals = this.getTierVisuals(hero.tier || 1);
+
         this.ctx.save();
         this.ctx.translate(x, y);
         
-        // Floor Aura
-        this.drawAura(0, 40, 90, hero.colors.primary);
+        // Vẽ Hào Quang dưới chân (Áp dụng màu & cường độ theo Tier)
+        this.drawAura(0, 40, tierVisuals.radius, tierVisuals.color, tierVisuals.intensity);
 
         // 3D Tilt Effect
         this.ctx.transform(1, dy * 0.008, dx * 0.008, 1, 0, 0);
 
         if (spriteImg) {
+            // Render Sprite đồ họa thực tế (Đã chuẩn bị sẵn logic cho tương lai)
             const w = 300;
             const h = 300;
+            this.ctx.shadowBlur = tierVisuals.intensity * 4; // Tướng cũng phát sáng nhẹ theo màu bậc
+            this.ctx.shadowColor = tierVisuals.color;
             this.ctx.drawImage(spriteImg, -w/2, -h/2 - 20 - breath, w, h);
         } else {
-            // High-quality placeholder
+            // High-quality placeholder (Emoji)
             this.ctx.font = '90px Outfit';
             this.ctx.textAlign = 'center';
             this.ctx.textBaseline = 'middle';
-            this.ctx.shadowBlur = 15;
-            this.ctx.shadowColor = hero.colors.primary;
+            // Phát sáng cực mạnh theo màu của Bậc
+            this.ctx.shadowBlur = 10 + (tierVisuals.intensity * 3);
+            this.ctx.shadowColor = tierVisuals.color;
             this.ctx.fillStyle = '#fff';
-            this.ctx.fillText('🐱', 0, -40 - breath);
             
-            // Decorative light pillars
-            this.ctx.fillStyle = hero.colors.primary + '22';
+            // Random mặt mèo dựa theo ID để các tướng không bị trùng 1 mặt
+            const emoji = this.getHeroEmoji(hero.id || hero.name);
+            this.ctx.fillText(emoji, 0, -40 - breath);
+            
+            // Decorative light pillars (Cột sáng bốc lên)
+            this.ctx.fillStyle = tierVisuals.color + '22'; // 22 is hex for low opacity
+            this.ctx.shadowBlur = 0; // Tắt glow cho cột sáng
             this.ctx.fillRect(-45, -200 - breath, 90, 160);
         }
 
@@ -132,7 +170,10 @@ export class GameRenderer {
         this.ctx.font = '900 14px Outfit';
         this.ctx.fillStyle = '#fff';
         this.ctx.textAlign = 'center';
-        this.ctx.fillText(`Lv.${hero.level}`, 0, 5);
+        
+        // Fix lỗi hiển thị undefined, dùng giá trị mặc định là 1
+        const displayLevel = hero.level || 1;
+        this.ctx.fillText(`Lv.${displayLevel}`, 0, 5);
         this.ctx.restore();
 
         // --- NAME TAG BELOW (3Q STYLE) ---
@@ -142,7 +183,7 @@ export class GameRenderer {
         // Rank tag with purple background
         this.ctx.font = '900 12px Outfit';
         this.ctx.textAlign = 'center';
-        const rankText = hero.rank || '[Thích Sử]';
+        const rankText = hero.roleName || hero.rank || '[Chưa Rõ]';
         const rankWidth = this.ctx.measureText(rankText).width + 10;
         
         this.ctx.fillStyle = 'rgba(80, 0, 80, 0.9)';
@@ -153,13 +194,17 @@ export class GameRenderer {
         this.ctx.fillStyle = '#ff00ff';
         this.ctx.fillText(rankText, 0, 24);
 
-        // Enhancement label (+7) & Name
+        // Enhancement label (+0) & Name
         this.ctx.font = '900 16px Outfit';
         this.ctx.shadowBlur = 4;
         this.ctx.shadowColor = '#000';
         
-        const fullName = `${hero.name}+${hero.enh}`;
-        this.ctx.fillStyle = '#ffcc00'; // Gold
+        // Fix lỗi hiển thị undefined, dùng giá trị mặc định là 0
+        const displayEnh = hero.enh || 0;
+        const fullName = `${hero.name}+${displayEnh}`;
+        
+        // Màu tên tướng khớp với màu Bậc Khung!
+        this.ctx.fillStyle = tierVisuals.color; 
         this.ctx.fillText(fullName, 0, 0);
         
         this.ctx.restore();
